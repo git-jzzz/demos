@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demos.begindemo.mapper.StudentMapper">
+
+    <!-- 通用设置 -->
+    <!-- 通用查询列 -->
+    <sql id="Base_Column_List">
+            id, name, sex, age, address, classId, number, beginTime
+        </sql>
+
+    <!-- 通用条件列 -->
+    <sql id="StudentByCondition">
+        <if test="name!=null and name!=''">
+            AND name = #{name}
+        </if>
+        <if test="sex!=null and sex!=''">
+            AND sex = #{sex}
+        </if>
+        <if test="age!=null and age!=''">
+            AND age = #{age}
+        </if>
+        <if test="address!=null and address!=''">
+            AND address = #{address}
+        </if>
+        <if test="classId!=null and classId!=''">
+            AND classId = #{classId}
+        </if>
+        <if test="number!=null and number!=''">
+            AND number = #{number}
+        </if>
+        <if test="beginTime!=null and beginTime!=''">
+            AND beginTime = #{beginTime}
+        </if>
+    </sql>
+
+    <!-- 通用设置列 -->
+    <sql id="StudentSetColumns">
+        <if test="name!=null and name!=''">
+            name = #{name},
+        </if>
+        <if test="sex!=null and sex!=''">
+            sex = #{sex},
+        </if>
+        <if test="age!=null and age!=''">
+            age = #{age},
+        </if>
+        <if test="address!=null and address!=''">
+            address = #{address},
+        </if>
+        <if test="classId!=null and classId!=''">
+            classId = #{classId},
+        </if>
+        <if test="number!=null and number!=''">
+            number = #{number},
+        </if>
+        <if test="beginTime!=null and beginTime!=''">
+            beginTime = #{beginTime},
+        </if>
+    </sql>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="StudentMap" type="com.demos.begindemo.pojo.entity.Student">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="address" property="address"/>
+        <result column="classId" property="classId"/>
+        <result column="number" property="number"/>
+        <result column="beginTime" property="beginTime"/>
+    </resultMap>
+
+    <!-- 查询表student所有信息 -->
+    <select id="findAllStudent" resultMap="StudentMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM student
+    </select>
+
+    <!-- 分页查询查询表student所有信息 -->
+    <select id="selectForPage" resultMap="StudentMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM student
+        <where>
+            <if test="studentBO.name!=null">
+                and name like concat(#{studentBO.name},'%')
+            </if>
+        </where>
+    </select>
+
+    <!-- 根据主键id查询表student信息 -->
+    <select id="findStudentByid" resultMap="StudentMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM student
+        WHERE id=#{id}
+    </select>
+
+    <!-- 根据条件查询表student信息 -->
+    <select id="findStudentByCondition" resultMap="StudentMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM student
+        WHERE 1=1
+        <include refid="StudentByCondition"/>
+    </select>
+
+    <!-- 根据主键id删除表student信息 -->
+    <delete id="deleteStudentByid">
+                DELETE FROM
+                student
+                WHERE id=#{id}
+            </delete>
+
+    <!-- 根据主键id更新表student信息 -->
+    <update id="updateStudentByid" parameterType="com.demos.begindemo.pojo.entity.Student">
+        UPDATE student
+        <set>
+            <include refid="StudentSetColumns"/>
+        </set>
+        WHERE
+        id=#{id}
+    </update>
+
+    <!-- 新增表student信息 -->
+    <insert id="addStudent">
+                INSERT INTO student (
+                    id
+                    ,name
+                    ,sex
+                    ,age
+                    ,address
+                    ,classId
+                    ,number
+                    ,beginTime
+                ) VALUES (
+                    #{id}
+                    ,#{name}
+                    ,#{sex}
+                    ,#{age}
+                    ,#{address}
+                    ,#{classId}
+                    ,#{number}
+                    ,#{beginTime}
+                )
+            </insert>
+</mapper>

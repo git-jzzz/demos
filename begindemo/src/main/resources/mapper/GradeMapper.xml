@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demos.begindemo.mapper.GradeMapper">
+
+    <!-- 通用设置 -->
+        <!-- 通用查询列 -->
+        <sql id="Base_Column_List">
+            id, gradeName
+        </sql>
+
+        <!-- 通用条件列 -->
+        <sql id="GradeByCondition">
+                    <if test="gradeName!=null and gradeName!=''">
+                        AND gradeName = #{gradeName}
+                    </if>
+        </sql>
+
+        <!-- 通用设置列 -->
+        <sql id="GradeSetColumns">
+                    <if test="gradeName!=null and gradeName!=''">
+                        gradeName = #{gradeName},
+                    </if>
+        </sql>
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="GradeMap" type="com.demos.begindemo.pojo.entity.Grade">
+                    <id column="id" property="id"/>
+                    <result column="gradeName" property="gradeName"/>
+        </resultMap>
+
+    <!-- 查询表grade所有信息 -->
+    <select id="findAllGrade" resultMap="GradeMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM grade
+    </select>
+
+            <!-- 根据主键id查询表grade信息 -->
+            <select id="findGradeByid" resultMap="GradeMap">
+                SELECT
+                <include refid="Base_Column_List"/>
+                FROM grade
+                WHERE id=#{id}
+            </select>
+
+    <!-- 根据条件查询表grade信息 -->
+    <select id="findGradeByCondition" resultMap="GradeMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM grade
+        WHERE 1=1
+        <include refid="GradeByCondition" />
+    </select>
+
+            <!-- 根据主键id删除表grade信息 -->
+            <delete id="deleteGradeByid">
+                DELETE FROM
+                grade
+                WHERE id=#{id}
+            </delete>
+
+            <!-- 根据主键id更新表grade信息 -->
+            <update id="updateGradeByid" parameterType="com.demos.begindemo.pojo.entity.Grade">
+                UPDATE grade
+                <set>
+                    <include refid="GradeSetColumns"/>
+                </set>
+                WHERE
+                id=#{id}
+            </update>
+
+            <!-- 新增表grade信息 -->
+            <insert id="addGrade">
+                INSERT INTO grade (
+                    id
+                    ,gradeName
+                ) VALUES (
+                    #{id}
+                    ,#{gradeName}
+                )
+            </insert>
+</mapper>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demos.begindemo.mapper.ClassesMapper">
+
+    <!-- 通用设置 -->
+        <!-- 通用查询列 -->
+        <sql id="Base_Column_List">
+            id, className, gradeId
+        </sql>
+
+        <!-- 通用条件列 -->
+        <sql id="ClassesByCondition">
+                    <if test="className!=null and className!=''">
+                        AND className = #{className}
+                    </if>
+                    <if test="gradeId!=null and gradeId!=''">
+                        AND gradeId = #{gradeId}
+                    </if>
+        </sql>
+
+        <!-- 通用设置列 -->
+        <sql id="ClassesSetColumns">
+                    <if test="className!=null and className!=''">
+                        className = #{className},
+                    </if>
+                    <if test="gradeId!=null and gradeId!=''">
+                        gradeId = #{gradeId},
+                    </if>
+        </sql>
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="ClassesMap" type="com.demos.begindemo.pojo.entity.Classes">
+                    <id column="id" property="id"/>
+                    <result column="className" property="className"/>
+                    <result column="gradeId" property="gradeId"/>
+        </resultMap>
+
+    <!-- 查询表classes所有信息 -->
+    <select id="findAllClasses" resultMap="ClassesMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM classes
+    </select>
+
+            <!-- 根据主键id查询表classes信息 -->
+            <select id="findClassesByid" resultMap="ClassesMap">
+                SELECT
+                <include refid="Base_Column_List"/>
+                FROM classes
+                WHERE id=#{id}
+            </select>
+
+    <!-- 根据条件查询表classes信息 -->
+    <select id="findClassesByCondition" resultMap="ClassesMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM classes
+        WHERE 1=1
+        <include refid="ClassesByCondition" />
+    </select>
+
+            <!-- 根据主键id删除表classes信息 -->
+            <delete id="deleteClassesByid">
+                DELETE FROM
+                classes
+                WHERE id=#{id}
+            </delete>
+
+            <!-- 根据主键id更新表classes信息 -->
+            <update id="updateClassesByid" parameterType="com.demos.begindemo.pojo.entity.Classes">
+                UPDATE classes
+                <set>
+                    <include refid="ClassesSetColumns"/>
+                </set>
+                WHERE
+                id=#{id}
+            </update>
+
+            <!-- 新增表classes信息 -->
+            <insert id="addClasses">
+                INSERT INTO classes (
+                    id
+                    ,className
+                    ,gradeId
+                ) VALUES (
+                    #{id}
+                    ,#{className}
+                    ,#{gradeId}
+                )
+            </insert>
+</mapper>
