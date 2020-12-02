@@ -21,7 +21,7 @@ public class RemoveWMController {
     private RemoveWMService removeWMService;
 
     @GetMapping("/getVideo")
-    public ResponseData getVideo(@RequestParam("url") String url) throws Exception{
+    public ResponseData getVideo(@RequestParam(value = "url") String url) throws Exception{
        /* String i=null;
         System.out.println(i.toLowerCase());*/
         return removeWMService.rmwm(url);

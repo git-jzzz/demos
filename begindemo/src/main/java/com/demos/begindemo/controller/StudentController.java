@@ -18,7 +18,7 @@ public class StudentController {
 
     @GetMapping("/page")
     public ResponseData selectForPage(StudentBO studentBO) {
-      /*  if(true){
+       /* if(true){
             throw  new BizException(1, "测试自定义异常");
         }*/
         return studentService.selectForPage(studentBO);
