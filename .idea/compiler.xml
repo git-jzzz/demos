@@ -10,10 +10,14 @@
         <module name="begindemo" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="commons" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="begindemo" options="-parameters" />
+      <module name="commons" options="" />
     </option>
   </component>
 </project>

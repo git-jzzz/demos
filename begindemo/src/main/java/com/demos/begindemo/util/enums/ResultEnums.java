@@ -9,9 +9,10 @@ public enum ResultEnums {
     SUCCESS(0000, "请求成功"),
     ERROR(1111, "请求失败"),
     SYSTEM_ERROR(1000, "系统异常"),
+    NULL_ERROR(1001,"空指针异常"),
     BUSSINESS_ERROR(2001, "业务逻辑错误"),
-    VERIFY_CODE_ERROR(2002, "业务参数错误"),
-    PARAM_ERROR(2002, "业务参数错误");
+    VERIFY_CODE_ERROR(2002, "参数验证错误"),
+    PARAM_ERROR(2003, "业务参数错误");
 
 
 

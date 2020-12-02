@@ -1,5 +1,6 @@
 package com.demos.begindemo.controller;
 
+import com.demos.begindemo.config.exception.BizException;
 import com.demos.begindemo.pojo.bo.StudentBO;
 import com.demos.begindemo.service.StudentService;
 import com.demos.begindemo.util.response.ResponseData;
@@ -17,6 +18,9 @@ public class StudentController {
 
     @GetMapping("/page")
     public ResponseData selectForPage(StudentBO studentBO) {
+      /*  if(true){
+            throw  new BizException(1, "测试自定义异常");
+        }*/
         return studentService.selectForPage(studentBO);
     }
 }
