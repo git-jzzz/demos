@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.demos.musicmanager.mapper.MusicMapper">
+
+    <!-- 通用设置 -->
+        <!-- 通用查询列 -->
+        <sql id="Base_Column_List">
+            id, song_name, song_author, song_url, lrc_url, cover_url, status
+        </sql>
+
+        <!-- 通用条件列 -->
+        <sql id="MusicByCondition">
+                    <if test="songName!=null and songName!=''">
+                        AND song_name = #{songName}
+                    </if>
+                    <if test="songAuthor!=null and songAuthor!=''">
+                        AND song_author = #{songAuthor}
+                    </if>
+                    <if test="songUrl!=null and songUrl!=''">
+                        AND song_url = #{songUrl}
+                    </if>
+                    <if test="lrcUrl!=null and lrcUrl!=''">
+                        AND lrc_url = #{lrcUrl}
+                    </if>
+                    <if test="coverUrl!=null and coverUrl!=''">
+                        AND cover_url = #{coverUrl}
+                    </if>
+                    <if test="status!=null and status!=''">
+                        AND status = #{status}
+                    </if>
+        </sql>
+
+        <!-- 通用设置列 -->
+        <sql id="MusicSetColumns">
+                    <if test="songName!=null and songName!=''">
+                        song_name = #{songName},
+                    </if>
+                    <if test="songAuthor!=null and songAuthor!=''">
+                        song_author = #{songAuthor},
+                    </if>
+                    <if test="songUrl!=null and songUrl!=''">
+                        song_url = #{songUrl},
+                    </if>
+                    <if test="lrcUrl!=null and lrcUrl!=''">
+                        lrc_url = #{lrcUrl},
+                    </if>
+                    <if test="coverUrl!=null and coverUrl!=''">
+                        cover_url = #{coverUrl},
+                    </if>
+                    <if test="status!=null and status!=''">
+                        status = #{status},
+                    </if>
+        </sql>
+
+        <!-- 通用查询映射结果 -->
+        <resultMap id="MusicMap" type="com.demos.musicmanager.pojo.entity.Music">
+                    <id column="id" property="id"/>
+                    <result column="song_name" property="songName"/>
+                    <result column="song_author" property="songAuthor"/>
+                    <result column="song_url" property="songUrl"/>
+                    <result column="lrc_url" property="lrcUrl"/>
+                    <result column="cover_url" property="coverUrl"/>
+                    <result column="status" property="status"/>
+        </resultMap>
+
+    <!-- 查询表music所有信息 -->
+    <select id="findAllMusic" resultMap="MusicMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM music
+    </select>
+
+            <!-- 根据主键id查询表music信息 -->
+            <select id="findMusicByid" resultMap="MusicMap">
+                SELECT
+                <include refid="Base_Column_List"/>
+                FROM music
+                WHERE id=#{id}
+            </select>
+
+    <!-- 根据条件查询表music信息 -->
+    <select id="findMusicByCondition" resultMap="MusicMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM music
+        WHERE 1=1
+        <include refid="MusicByCondition" />
+    </select>
+
+            <!-- 根据主键id删除表music信息 -->
+            <delete id="deleteMusicByid">
+                DELETE FROM
+                music
+                WHERE id=#{id}
+            </delete>
+
+            <!-- 根据主键id更新表music信息 -->
+            <update id="updateMusicByid" parameterType="com.demos.musicmanager.pojo.entity.Music">
+                UPDATE music
+                <set>
+                    <include refid="MusicSetColumns"/>
+                </set>
+                WHERE
+                id=#{id}
+            </update>
+
+            <!-- 新增表music信息 -->
+            <insert id="addMusic">
+                INSERT INTO music (
+                    id
+                    ,song_name
+                    ,song_author
+                    ,song_url
+                    ,lrc_url
+                    ,cover_url
+                    ,status
+                ) VALUES (
+                    #{id}
+                    ,#{songName}
+                    ,#{songAuthor}
+                    ,#{songUrl}
+                    ,#{lrcUrl}
+                    ,#{coverUrl}
+                    ,#{status}
+                )
+            </insert>
+</mapper>
