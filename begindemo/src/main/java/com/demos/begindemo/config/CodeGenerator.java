@@ -46,7 +46,7 @@ public class CodeGenerator {
         AutoGenerator mpg = new AutoGenerator();
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
-        String projectPath = System.getProperty("user.dir");
+        String projectPath = System.getProperty("user.dir")+"/music-manager";
         gc.setOutputDir(projectPath + "/src/main/java");
         gc.setAuthor("jz");
         gc.setOpen(false);
@@ -64,7 +64,7 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/demo?useUnicode=true&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://localhost:3306/music?useUnicode=true&useSSL=false&characterEncoding=utf8");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("jianshen999");
@@ -82,7 +82,7 @@ public class CodeGenerator {
         PackageConfig pc = new PackageConfig();
         //  pc.setModuleName(scanner("模块名"));
         //父包名，如果为空，将下面子包名必须写全部， 否则就只需写子包名
-        pc.setParent("com.example.demo");
+        pc.setParent("com.demos.musicmanager");
         pc.setEntity("pojo.entity");
         mpg.setPackageInfo(pc);
 
@@ -107,12 +107,13 @@ public class CodeGenerator {
         // 配置  模板  不需要可设置为null
         TemplateConfig templateConfig = new TemplateConfig();
         templateConfig.setMapper("/templates/mapper.java");
-       /* templateConfig.setController("/templates/controller.java");
+        templateConfig.setController("/templates/controller.java");
         templateConfig.setService("/templates/service.java");
-        templateConfig.setServiceImpl("/templates/serviceImpl.java");*/
-        templateConfig.setController(null);
+        templateConfig.setServiceImpl("/templates/serviceImpl.java");
+    /*    templateConfig.setController(null);
         templateConfig.setService(null);
-        templateConfig.setServiceImpl(null);
+        templateConfig.setServiceImpl(null);*/
+
         templateConfig.setXml(null);
         mpg.setTemplate(templateConfig);
 
