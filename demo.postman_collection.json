@@ -1,0 +1,110 @@
+{
+	"info": {
+		"_postman_id": "3c57188b-1c6d-4c88-90fd-cdc84aaa7778",
+		"name": "demo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "music",
+			"item": [
+				{
+					"name": "添加歌曲信息",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "分页查询  学生信息",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/student/page?currentPage=1&name=蒋",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"student",
+						"page"
+					],
+					"query": [
+						{
+							"key": "currentPage",
+							"value": "1",
+							"description": "当前页马"
+						},
+						{
+							"key": "name",
+							"value": "蒋",
+							"description": "模糊查询学生姓名"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "视频去水印",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{url}}/removeWM/getVideo?url=",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"removeWM",
+						"getVideo"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "55e2c4c2-e5c9-42e8-afab-b7a95ca70a26",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "060ff35f-a2ca-4883-9a28-1938923aa9e2",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "c87df22a-c3bc-48a2-9bf1-abc43fb13605",
+			"key": "url",
+			"value": "localhost:8080"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
