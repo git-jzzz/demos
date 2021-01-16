@@ -8,5 +8,18 @@ import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
 public interface MusicService {
-         ResponseData addMusic(MusicBO musicBO) throws  Exception;
+    /**
+     * 添加音乐
+     * @param musicBO
+     * @return
+     * @throws Exception
+     */
+    ResponseData addMusic(MusicBO musicBO) throws Exception;
+
+    /**
+     * 导入原数据库音乐
+     * @return
+     * @throws Exception
+     */
+    ResponseData imports() throws  Exception;
 }

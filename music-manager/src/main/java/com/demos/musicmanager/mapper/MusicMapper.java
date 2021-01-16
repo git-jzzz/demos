@@ -4,6 +4,8 @@ import com.demos.musicmanager.pojo.entity.Music;
 
 import java.util.List;
 
+import com.demos.musicmanager.pojo.vo.MusicVO;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 public interface MusicMapper {
@@ -47,5 +49,7 @@ public interface MusicMapper {
      * @param music
      */
     Integer addMusic(Music music);
+
+    List<MusicVO> imports();
 
 }

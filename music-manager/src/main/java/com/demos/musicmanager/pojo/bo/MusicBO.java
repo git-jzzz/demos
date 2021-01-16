@@ -10,7 +10,7 @@ import lombok.Data;
 @Data
 public class MusicBO {
     /**
-     * 1直接输入链接 2 咪咕链接
+     * 1网易云id 2 咪咕链接
      */
     private int status;
 
@@ -18,4 +18,16 @@ public class MusicBO {
      * url链接
      */
     private String url;
+
+    /**
+     * 网易云id
+     */
+    private String wyyId;
+
+    /**
+     * 封面图片
+     */
+    private String coverUrl;
+
+
 }

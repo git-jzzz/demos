@@ -28,7 +28,7 @@ public class QiniuConfig {
      * 配置空间的存储区域
      */
     @Bean
-    public com.qiniu.storage.Configuration qiNiuConfig() {
+    public com.qiniu.storage.Configuration qiNiuConfig(){
         switch (zone) {
             case "huadong":
                 return new com.qiniu.storage.Configuration(Zone.huadong());
@@ -41,7 +41,7 @@ public class QiniuConfig {
             case "dongnanya":
                 return new com.qiniu.storage.Configuration(Zone.zoneAs0());
             default:
-                throw new BizException(1002, "存储区域配置错误");
+                throw new BizException(1002,"存储区域配置错误");
         }
     }
 

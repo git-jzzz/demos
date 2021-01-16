@@ -6,7 +6,6 @@ import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.InetAddress;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +23,10 @@ public class URLUtils {
         URL serverUrl = new URL(url);
         HttpURLConnection connection = (HttpURLConnection) serverUrl.openConnection();
         connection.setRequestMethod("GET");
+        //模拟浏览器
+        connection.setRequestProperty("User-Agent", "Mozilla/5.0 ( compatible ) ");
+        connection.setRequestProperty("Accept", "*/*");
         connection.setInstanceFollowRedirects(false);
-//        connection.setRequestProperty("User-agent","ua");    //模拟手机
         connection.connect();
         String location = connection.getHeaderField("Location");
         return location;
@@ -88,7 +89,7 @@ public class URLUtils {
             //模拟浏览器
             conn.setRequestProperty("User-Agent", "Mozilla/5.0 ( compatible ) ");
             conn.setRequestProperty("Accept", "*/*");
-            conn.setConnectTimeout(20 * 1000);
+            conn.setConnectTimeout(40 * 1000);
             final ByteArrayOutputStream output = new ByteArrayOutputStream();
             IOUtils.copy(conn.getInputStream(), output);
             return new ByteArrayInputStream(output.toByteArray());

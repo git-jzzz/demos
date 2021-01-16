@@ -2,6 +2,7 @@ package com.demos.musicmanager.config.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 /**
@@ -22,4 +23,7 @@ public class BizException extends  RuntimeException {
      * 错误信息
      */
     protected  String errMsg;
+
+
+
 }

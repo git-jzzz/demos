@@ -19,5 +19,11 @@ public class MusicController {
         return musicService.addMusic(musicBO);
     }
 
+    @GetMapping("/imports")
+    public ResponseData imports() throws  Exception{
+
+        return musicService.imports();
+    }
+
 
 }

@@ -1,7 +1,8 @@
 package com.demos.musicmanager.pojo.vo;
 
-import com.demos.musicmanager.pojo.entity.Music;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author: jz
@@ -9,6 +10,8 @@ import lombok.Data;
  * @Description:
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class MusicVO {
     private String name;
     private String artist;
@@ -16,7 +19,7 @@ public class MusicVO {
     private String lrc;
     private String cover;
 
-    public MusicVO() {
+/*    public MusicVO() {
     }
 
     public MusicVO(String name,
@@ -29,5 +32,5 @@ public class MusicVO {
         this.lrc = lrc;
         this.url = url;
         this.cover = cover;
-    }
+    }*/
 }
