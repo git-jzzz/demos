@@ -98,7 +98,6 @@ public class MusicServiceImpl implements MusicService {
             InputStream inputStream2 = URLUtils.getInputStreamByUrl(cover);
             InputStream inputStream3 = URLUtils.getStreamByString(lrc);
 
-
             if (inputStream1 == null || inputStream2 == null || inputStream3 == null) {
                 return ResponseDataUtil.buildError(ResultEnums.NULL_ERROR);
             }
@@ -126,8 +125,10 @@ public class MusicServiceImpl implements MusicService {
             //网易云
             InputStream inputStream1 = URLUtils.getInputStreamByUrl(URLUtils.getLocation(wangyiyun_song_url + musicBO.getWyyId()));
             InputStream inputStream2 = URLUtils.getInputStreamByUrl(musicBO.getCoverUrl() + "?param=130y130");
-            InputStream inputStream3 = URLUtils.getInputStreamByUrl(wangyiyun_song_url + musicBO.getWyyId());
-
+            InputStream inputStream3 = URLUtils.getInputStreamByUrl(wangyiyun_lrc_url + musicBO.getWyyId());
+            if (inputStream1 == null || inputStream2 == null || inputStream3 == null) {
+                return ResponseDataUtil.buildError(ResultEnums.NULL_ERROR);
+            }
             String names = musicBO.getSongName() + "-" + musicBO.getSongAuthor();
             names = names.replace("/", " ");
             String result1 = qiniuService.uploadFile(inputStream1, names + ".mp3");
