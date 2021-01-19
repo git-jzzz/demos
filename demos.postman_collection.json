@@ -1,0 +1,116 @@
+{
+	"info": {
+		"_postman_id": "ee81b18e-258f-433d-b1ac-86354782d26e",
+		"name": "demos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "miguMusicAdd",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "status",
+							"value": "1",
+							"description": "1 网易云 \n2 咪咕",
+							"type": "text"
+						},
+						{
+							"key": "url2",
+							"value": "",
+							"description": "migu    /getPlayInfo 请求接口",
+							"type": "text"
+						},
+						{
+							"key": "wyyId",
+							"value": "28256115",
+							"description": "网易云歌曲id",
+							"type": "text"
+						},
+						{
+							"key": "coverUrl",
+							"value": "https://p1.music.126.net/ZNnDcq2-b_An3_ag3H5XhQ==/5980243743520718.jpg",
+							"description": "封面图",
+							"type": "text"
+						},
+						{
+							"key": "songName",
+							"value": "I Do",
+							"description": "歌名",
+							"type": "text"
+						},
+						{
+							"key": "songAuthor",
+							"value": "911",
+							"description": "歌手名",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{musicManagerUrl}}/music/addMusic",
+					"host": [
+						"{{musicManagerUrl}}"
+					],
+					"path": [
+						"music",
+						"addMusic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "导入原数据库音乐",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "输入咪咕url获取咪咕返回值",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": ""
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "musicManagerUrl",
+			"value": "localhost:8080/musicManager"
+		}
+	]
+}

@@ -97,11 +97,13 @@ public class MusicServiceImpl implements MusicService {
             InputStream inputStream1 = URLUtils.getInputStreamByUrl(song_url);
             InputStream inputStream2 = URLUtils.getInputStreamByUrl(cover);
             InputStream inputStream3 = URLUtils.getStreamByString(lrc);
+
+
             if (inputStream1 == null || inputStream2 == null || inputStream3 == null) {
                 return ResponseDataUtil.buildError(ResultEnums.NULL_ERROR);
             }
             String names = songName + "-" + author;
-            names = names.replace("/", "");
+            names = names.replace("/", " ");
             String result1 = qiniuService.uploadFile(inputStream1, names + ".mp3");
             String result2 = qiniuService.uploadFile(inputStream2, names + ".jpg");
             String result3 = qiniuService.uploadFile(inputStream3, names + ".lrc");
@@ -122,9 +124,30 @@ public class MusicServiceImpl implements MusicService {
             return ResponseDataUtil.buildSuccess(i > 0 ? "上传成功" : "上传失败");
         } else if (musicBO.getStatus() == 1) {
             //网易云
-            InputStream inputStream = URLUtils.getInputStreamByUrl(URLUtils.getLocation(wangyiyun_song_url + musicBO.getWyyId()));
-            InputStream inputStream1 = URLUtils.getInputStreamByUrl(wangyiyun_song_url + musicBO.getWyyId());
+            InputStream inputStream1 = URLUtils.getInputStreamByUrl(URLUtils.getLocation(wangyiyun_song_url + musicBO.getWyyId()));
+            InputStream inputStream2 = URLUtils.getInputStreamByUrl(musicBO.getCoverUrl() + "?param=130y130");
+            InputStream inputStream3 = URLUtils.getInputStreamByUrl(wangyiyun_song_url + musicBO.getWyyId());
 
+            String names = musicBO.getSongName() + "-" + musicBO.getSongAuthor();
+            names = names.replace("/", " ");
+            String result1 = qiniuService.uploadFile(inputStream1, names + ".mp3");
+            String result2 = qiniuService.uploadFile(inputStream2, names + ".jpg");
+            String result3 = qiniuService.uploadFile(inputStream3, names + ".lrc");
+
+            inputStream1 = URLUtils.getInputStreamByUrl(URLUtils.getLocation(wangyiyun_song_url + musicBO.getWyyId()));
+            inputStream2 = URLUtils.getInputStreamByUrl(musicBO.getCoverUrl());
+            inputStream3 = URLUtils.getInputStreamByUrl(wangyiyun_song_url + musicBO.getWyyId());
+
+            System.out.println(result1 + "\n" + result2 + "\n" + result3);
+            Music music = new Music(null, musicBO.getSongName(), musicBO.getSongAuthor(), result1, result3, result2, 1);
+            MusicVO musicVO = new MusicVO(music.getSongName(), music.getSongAuthor(), music.getSongUrl(), music.getLrcUrl(), music.getCoverUrl());
+            //存入本地文件夹备份
+            backups(inputStream1, inputStream2, inputStream3, names + ".mp3", names + ".jpg", names + ".lrc");
+            //写入music.js
+            addMusicJS(musicVO);
+            //存入数据库
+            int i = musicMapper.addMusic(music);
+            return ResponseDataUtil.buildSuccess(i > 0 ? "上传成功" : "上传失败");
         }
 
         return ResponseDataUtil.buildSuccess("success");

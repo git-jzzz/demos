@@ -19,15 +19,27 @@ public class MusicBO {
      */
     private String url;
 
+
+
     /**
      * 网易云id
      */
     private String wyyId;
 
     /**
-     * 封面图片
+     * 封面图片url
      */
     private String coverUrl;
+
+    /**
+     * 歌曲名
+     */
+    private String songName;
+
+    /**
+     * 作者名
+     */
+    private String songAuthor;
 
 
 }
